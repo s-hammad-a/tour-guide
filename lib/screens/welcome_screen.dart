@@ -13,11 +13,13 @@ class WelcomePage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(bottomRight: Radius.circular(size.height/3), bottomLeft: Radius.circular(size.height/3)),
-              color: Colors.white,
+              color: const Color(0xFFEFF2EB),
             ),
+            width: size.width,
             height: size.height/3,
+            child: Image.asset("assets/map.png", fit: BoxFit.fitHeight,)
           ),
-          const Expanded(child: SizedBox.shrink()),
+          const Expanded(flex:2,child: SizedBox.shrink()),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 30),
             child: Text(
@@ -29,6 +31,7 @@ class WelcomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+          const Expanded(child: SizedBox.shrink()),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 30),
             child: TextButton(

@@ -7,10 +7,12 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xFFDCE3D3),
+      backgroundColor: const Color(0xFFEFF2EB),
       body: Column(
         children: [
-          const Expanded(child: SizedBox()),
+          Expanded(
+              child: Image.asset("assets/map.png", fit: BoxFit.fitHeight,)
+          ),
           SizedBox(
             height: size.height/1.5,
             child: Stack(
