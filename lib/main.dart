@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:togu/controllers/home_screen_controller.dart';
+import 'package:togu/screens/buses_screen.dart';
+import 'package:togu/screens/car_rental_screen.dart';
 import 'package:togu/screens/create_account_screen.dart';
+import 'package:togu/screens/details_screen.dart';
 import 'package:togu/screens/home_screen.dart';
 import 'package:togu/screens/log_in_screen.dart';
+import 'package:togu/screens/other_screen.dart';
+import 'package:togu/screens/restaurant_screen.dart';
 import 'package:togu/screens/splash_page.dart';
+import 'package:togu/screens/taxi_screen.dart';
+import 'package:togu/screens/transport_screen.dart';
+import 'package:togu/screens/travel_plan_screen.dart';
 import 'package:togu/screens/welcome_screen.dart';
 
 void main() {
@@ -24,6 +32,20 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'TOGU',
+        routes: {
+          "/welcomeScreen" : (context) => const WelcomePage(),
+          "/loginScreen" : (context) => const LoginScreen(),
+          "/signupScreen" : (context) => const CreateAccountScreen(),
+          "/homeScreen" : (context) => const HomeScreen(),
+          "/transportScreen" : (context) => const TransportScreen(),
+          "/restaurantScreen" : (context) => const RestaurantScreen(),
+          "/travelScreen" : (context) => const TravelPlanScreen(),
+          "/otherScreen" : (context) => const OtherScreen(),
+          "/busesScreen" : (context) => const BusesScreen(),
+          "/taxiScreen" : (context) => const TaxiScreen(),
+          "/carRentalScreen" : (context) => const CarRentalScreen(),
+          "/detailScreen" : (context) => const DetailsScreen(),
+        },
         theme: ThemeData(
           // This is the theme of your application.
           //
@@ -47,7 +69,7 @@ class MyApp extends StatelessWidget {
           future: Future.delayed(const Duration(seconds: 1)),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if(snapshot.connectionState == ConnectionState.done) {
-              return const HomeScreen();
+              return const WelcomePage();
             }
             else {
               return const SplashPage();

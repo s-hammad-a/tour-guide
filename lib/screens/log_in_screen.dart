@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                           "Log In",
                           style: TextStyle(
                             color: Color(0xFF6F7C42),
-                            fontSize: 25,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold
                           ),
                         ),
@@ -129,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                                 padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 5)),
                               ),
                               onPressed: () {
-
+                                Navigator.pushNamed(context, '/homeScreen');
                               },
                               icon: const Icon(
                                 Icons.arrow_forward_rounded,

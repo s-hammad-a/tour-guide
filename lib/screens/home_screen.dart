@@ -9,6 +9,30 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFDCE3D3),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF8F967A),
+        title: Row(
+          children: [
+            const SizedBox(width: 10,),
+            Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Image.asset("assets/sample.png", height: 50, width: 50, fit: BoxFit.fill,)
+            ),
+            const SizedBox(width: 10,),
+            const Text(
+              "Welcome Asma",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20
+              ),
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: context.watch<HomeScreenProvider>().currentIndex == 0 ? const BookmarkPage() : context.watch<HomeScreenProvider>().currentIndex == 1 ? const HomePage() : const ProfilePage(),
       ),
@@ -82,85 +106,51 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          color: const Color(0xFF8F967A),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
-            child: Row(
-              children: [
-                const SizedBox(width: 30,),
-                Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Image.asset("assets/sample.png", height: 50, width: 50, fit: BoxFit.fill,)
-                ),
-                const SizedBox(width: 10,),
-                const Text(
-                  "Welcome Asma",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // Container(
+        //   color: const Color(0xFF8F967A),
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(top: 10, bottom: 10),
+        //     child: Row(
+        //       children: [
+        //         const SizedBox(width: 30,),
+        //         Container(
+        //           clipBehavior: Clip.hardEdge,
+        //           decoration: BoxDecoration(
+        //             borderRadius: BorderRadius.circular(20),
+        //           ),
+        //           child: Image.asset("assets/sample.png", height: 50, width: 50, fit: BoxFit.fill,)
+        //         ),
+        //         const SizedBox(width: 10,),
+        //         const Text(
+        //           "Welcome Asma",
+        //           style: TextStyle(
+        //             color: Colors.white,
+        //             fontSize: 20
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         const SizedBox(height: 30,),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            child: Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(image: AssetImage("assets/transport.jpg"), fit: BoxFit.fitWidth)
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                "Transport",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow( // bottomLeft
-                        offset: Offset(-1.5, -1.5),
-                        color: Colors.black
-                    ),
-                    Shadow( // bottomRight
-                        offset: Offset(1.5, -1.5),
-                        color: Colors.black
-                    ),
-                    Shadow( // topRight
-                        offset: Offset(1.5, 1.5),
-                        color: Colors.black
-                    ),
-                    Shadow( // topLeft
-                        offset: Offset(-1.5, 1.5),
-                        color: Colors.black
-                    ),
-                  ]
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/transportScreen');
+              },
+              child: Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(image: AssetImage("assets/transport.jpg"), fit: BoxFit.fitWidth)
                 ),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            child: Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(image: AssetImage("assets/cafe.jpg"), fit: BoxFit.fitWidth)
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                "Restaurants & Cafe",
-                style: TextStyle(
-                    fontSize: 25,
+                alignment: Alignment.center,
+                child: const Text(
+                  "Transport",
+                  style: TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                     shadows: [
                       Shadow( // bottomLeft
@@ -180,6 +170,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.black
                       ),
                     ]
+                  ),
                 ),
               ),
             ),
@@ -188,36 +179,41 @@ class HomePage extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            child: Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(image: AssetImage("assets/travel.jpg"), fit: BoxFit.fitWidth)
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                "Travel Plans",
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow( // bottomLeft
-                          offset: Offset(-1.5, -1.5),
-                          color: Colors.black
-                      ),
-                      Shadow( // bottomRight
-                          offset: Offset(1.5, -1.5),
-                          color: Colors.black
-                      ),
-                      Shadow( // topRight
-                          offset: Offset(1.5, 1.5),
-                          color: Colors.black
-                      ),
-                      Shadow( // topLeft
-                          offset: Offset(-1.5, 1.5),
-                          color: Colors.black
-                      ),
-                    ]
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/restaurantScreen');
+              },
+              child: Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(image: AssetImage("assets/cafe.jpg"), fit: BoxFit.fitWidth)
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  "Restaurants & Cafe",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow( // bottomLeft
+                            offset: Offset(-1.5, -1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // bottomRight
+                            offset: Offset(1.5, -1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // topRight
+                            offset: Offset(1.5, 1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // topLeft
+                            offset: Offset(-1.5, 1.5),
+                            color: Colors.black
+                        ),
+                      ]
+                  ),
                 ),
               ),
             ),
@@ -226,36 +222,84 @@ class HomePage extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            child: Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(image: AssetImage("assets/others.jpg"), fit: BoxFit.fitWidth)
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/travelScreen');
+              },
+              child: Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(image: AssetImage("assets/travel.jpg"), fit: BoxFit.fitWidth)
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  "Travel Plans",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow( // bottomLeft
+                            offset: Offset(-1.5, -1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // bottomRight
+                            offset: Offset(1.5, -1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // topRight
+                            offset: Offset(1.5, 1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // topLeft
+                            offset: Offset(-1.5, 1.5),
+                            color: Colors.black
+                        ),
+                      ]
+                  ),
+                ),
               ),
-              alignment: Alignment.center,
-              child: const Text(
-                "Others",
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow( // bottomLeft
-                          offset: Offset(-1.5, -1.5),
-                          color: Colors.black
-                      ),
-                      Shadow( // bottomRight
-                          offset: Offset(1.5, -1.5),
-                          color: Colors.black
-                      ),
-                      Shadow( // topRight
-                          offset: Offset(1.5, 1.5),
-                          color: Colors.black
-                      ),
-                      Shadow( // topLeft
-                          offset: Offset(-1.5, 1.5),
-                          color: Colors.black
-                      ),
-                    ]
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/otherScreen');
+              },
+              child: Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(image: AssetImage("assets/others.jpg"), fit: BoxFit.fitWidth)
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  "Others",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow( // bottomLeft
+                            offset: Offset(-1.5, -1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // bottomRight
+                            offset: Offset(1.5, -1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // topRight
+                            offset: Offset(1.5, 1.5),
+                            color: Colors.black
+                        ),
+                        Shadow( // topLeft
+                            offset: Offset(-1.5, 1.5),
+                            color: Colors.black
+                        ),
+                      ]
+                  ),
                 ),
               ),
             ),

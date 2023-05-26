@@ -33,28 +33,32 @@ class WelcomePage extends StatelessWidget {
           ),
           const Expanded(child: SizedBox.shrink()),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 30),
-            child: TextButton(
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Color(0xFFA5AA94)),
-                padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 20, horizontal: 30)),
-                shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))))
-              ),
-              onPressed: () {
-
-              },
-              child: const Text(
-                "Get Started",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
+            padding: const EdgeInsets.symmetric(vertical: 18.0),
+            child: SizedBox(
+              height: 50,
+              width: 200,
+              child: TextButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Color(0xFFA5AA94)),
+                  padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 30)),
+                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))))
                 ),
-                textAlign: TextAlign.center,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/loginScreen');
+                },
+                child: const Text(
+                  "Get Started",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 18.0),
             child: TextButton(
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Color(0x00A5AA94)),
@@ -62,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                 // shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))))
               ),
               onPressed: () {
-
+                Navigator.pushNamed(context, '/signupScreen');
               },
               child: const Text(
                 "Create Account",
@@ -74,40 +78,37 @@ class WelcomePage extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Already have an account? ",
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Already have an account? ",
+                style: TextStyle(
+                  color: Color(0xFF8F967A),
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(width: 5,),
+              TextButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Color(0x00A5AA94)),
+                  padding: MaterialStatePropertyAll(EdgeInsets.zero),
+                  // shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))))
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/loginScreen');
+                },
+                child: const Text(
+                  "Log In",
                   style: TextStyle(
-                    color: Color(0xFF8F967A),
+                    color: Color(0xFF6F7C42),
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(width: 5,),
-                TextButton(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Color(0x00A5AA94)),
-                    padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                    // shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))))
-                  ),
-                  onPressed: () {
-
-                  },
-                  child: const Text(
-                    "Log In",
-                    style: TextStyle(
-                      color: Color(0xFF6F7C42),
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           const SizedBox(height: 20,),
         ],
