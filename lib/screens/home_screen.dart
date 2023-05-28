@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: context.watch<HomeScreenProvider>().currentIndex == 0 ? const BookmarkPage() : context.watch<HomeScreenProvider>().currentIndex == 1 ? const HomePage() : const ProfilePage(),
+        child: Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const BookmarkPage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 1 ? const HomePage() : const ProfilePage(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

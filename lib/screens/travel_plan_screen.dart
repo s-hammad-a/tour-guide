@@ -33,9 +33,7 @@ class TravelPlanScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/detailScreen', arguments: {
-                    "name" : "Togu",
-                  });
+                  Navigator.pushNamed(context, '/tourismScreen');
                 },
                 child: Container(
                   clipBehavior: Clip.hardEdge,

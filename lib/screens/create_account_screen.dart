@@ -50,34 +50,7 @@ class CreateAccountScreen extends StatelessWidget {
                               fontSize: 20,
                             ),
                             decoration: const InputDecoration(
-                              hintText: "First Name",
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 40,
-                          child: TextFormField(
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                            decoration: const InputDecoration(
-                              hintText: "Last Name",
+                              hintText: "Full Name",
                               hintStyle: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

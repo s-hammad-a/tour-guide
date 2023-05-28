@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "851169553338",
+    "project_id": "togu-b76f2",
+    "storage_bucket": "togu-b76f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851169553338:android:afd2282215a16e9dcbcb83",
+        "android_client_info": {
+          "package_name": "com.fyp.togu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQds5J0ObNRoDJbS60M87XHH1URtjNgEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -44,7 +44,7 @@ class WelcomePage extends StatelessWidget {
                   shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))))
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/loginScreen');
+                  Navigator.pushNamed(context, '/wrapper');
                 },
                 child: const Text(
                   "Get Started",
@@ -97,7 +97,7 @@ class WelcomePage extends StatelessWidget {
                   // shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))))
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/loginScreen');
+                  Navigator.pushNamed(context, '/wrapper');
                 },
                 child: const Text(
                   "Log In",
