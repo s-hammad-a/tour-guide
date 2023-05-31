@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:togu/controllers/log_in_controller.dart';
+import 'package:togu/firebase/firebase_auth.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -49,6 +52,7 @@ class LoginScreen extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 20,
                             ),
+                            controller: context.watch<LoginProvider>().emailController,
                             decoration: const InputDecoration(
                               hintText: "Email",
                               hintStyle: TextStyle(
@@ -76,6 +80,7 @@ class LoginScreen extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 20,
                             ),
+                            controller: context.watch<LoginProvider>().passwordController,
                             obscureText: true,
                             decoration: const InputDecoration(
                               hintText: "Password",
@@ -129,7 +134,8 @@ class LoginScreen extends StatelessWidget {
                                 padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 5)),
                               ),
                               onPressed: () {
-                                Navigator.pushNamed(context, '/homeScreen');
+                                AuthService().signInWithEmailAndPassword(Provider.of<LoginProvider>(context, listen: false).emailController.text, Provider.of<LoginProvider>(context, listen: false).passwordController.text);
+                                // Navigator.pushNamed(context, '/homeScreen');
                               },
                               icon: const Icon(
                                 Icons.arrow_forward_rounded,

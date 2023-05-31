@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:togu/controllers/create_account_controller.dart';
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -49,6 +51,7 @@ class CreateAccountScreen extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 20,
                             ),
+                            controller: context.watch<CreateAccountProvider>().nameController,
                             decoration: const InputDecoration(
                               hintText: "Full Name",
                               hintStyle: TextStyle(
@@ -76,6 +79,7 @@ class CreateAccountScreen extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 20,
                             ),
+                            controller: context.watch<CreateAccountProvider>().emailController,
                             decoration: const InputDecoration(
                               hintText: "Email",
                               hintStyle: TextStyle(
@@ -103,8 +107,8 @@ class CreateAccountScreen extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 20,
                             ),
-                            obscureText: true,
                             keyboardType: TextInputType.phone,
+                            controller: context.watch<CreateAccountProvider>().phoneController,
                             decoration: const InputDecoration(
                               hintText: "Phone",
                               hintStyle: TextStyle(
@@ -133,6 +137,7 @@ class CreateAccountScreen extends StatelessWidget {
                               fontSize: 20,
                             ),
                             obscureText: true,
+                            controller: context.watch<CreateAccountProvider>().passwordController,
                             decoration: const InputDecoration(
                               hintText: "Password",
                               hintStyle: TextStyle(
@@ -161,6 +166,7 @@ class CreateAccountScreen extends StatelessWidget {
                               fontSize: 20,
                             ),
                             obscureText: true,
+                            controller: context.watch<CreateAccountProvider>().rePasswordController,
                             decoration: const InputDecoration(
                               hintText: "Re-Password",
                               hintStyle: TextStyle(
@@ -190,8 +196,13 @@ class CreateAccountScreen extends StatelessWidget {
                                   backgroundColor: MaterialStatePropertyAll(Color(0x00A5AA94)),
                                   padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 5)),
                                 ),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/homeScreen');
+                                onPressed: () async {
+                                  if(Provider.of<CreateAccountProvider>(context, listen: false).checkPassword()) {
+                                    bool check = await Provider.of<CreateAccountProvider>(context, listen: false).createAccount();
+                                    if(check) {
+                                      Navigator.pushNamed(context, '/wrapper');
+                                    }
+                                  }
                                 },
                                 icon: const Icon(
                                   Icons.arrow_forward_rounded,

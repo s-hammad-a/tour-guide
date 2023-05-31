@@ -308,6 +308,26 @@ class DetailScreen extends StatelessWidget {
                           ],
                         ) : const SizedBox.shrink(),
                         context.watch<DetailScreenProvider>().details['twitter'] != null ? const SizedBox(height: 10,) : const SizedBox.shrink(),
+                        const Expanded(child: SizedBox.shrink()),
+                        name == "Mamo" || name == "Zafran Indian Bistro" ? Center(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/reservationScreen');
+                            },
+                            style: const ButtonStyle(
+                              padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
+                              backgroundColor: MaterialStatePropertyAll(Color(0xFF6F7C42))
+                            ),
+                            child: const Text(
+                              "Reserve",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ) : const SizedBox.shrink(),
+                        const SizedBox(height: 30,),
                       ],
                     ),
                   ),

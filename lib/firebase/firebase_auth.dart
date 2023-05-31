@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   // create user object based on firebase user
   User? _userFromFirebaseUser(User? user)
@@ -13,7 +13,7 @@ class AuthService {
   //auth change user stream
 
   Stream<User?> get user {
-    return _auth.authStateChanges()
+    return auth.authStateChanges()
         .map(_userFromFirebaseUser);
     //.map((User? user) => _userFromFirebaseUser(user));
   }
@@ -21,7 +21,7 @@ class AuthService {
   //sign in with email and password
   Future registerWithEmailAndPassword(String email, String password, String name) async {
     try{
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       //create a new document for the user with id
       await user!.updateDisplayName(name);
@@ -36,7 +36,7 @@ class AuthService {
   //register with email and password
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
     try{
-      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       return user;
     }
@@ -48,7 +48,7 @@ class AuthService {
   // sign out
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      return await auth.signOut();
     }
     catch(e) {
       // ignore: avoid_print
