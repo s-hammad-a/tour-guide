@@ -312,7 +312,9 @@ class DetailScreen extends StatelessWidget {
                         name == "Mamo" || name == "Zafran Indian Bistro" ? Center(
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/reservationScreen');
+                              Navigator.pushNamed(context, '/reservationScreen', arguments: {
+                                "name" : name
+                              });
                             },
                             style: const ButtonStyle(
                               padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 30, vertical: 10)),

@@ -18,8 +18,13 @@ class CreateAccountProvider extends ChangeNotifier {
   Future<bool> createAccount() async {
     bool check =  await AuthService().registerWithEmailAndPassword(emailController.text, passwordController.text, nameController.text).then((value) async {
       print("hasfashhhh");
-      await databaseReference. .set({
-        AuthService().auth.currentUser!.uid : null,
+      // await databaseReference.child('/').push().set({
+      //   AuthService().auth.currentUser!.uid : "null",
+      // }).onError((error, stackTrace) {
+      //   print(error.toString());
+      // });
+      await databaseReference.child(AuthService().auth.currentUser!.uid).set({
+        "Reservations" : "",
       }).onError((error, stackTrace) {
         print(error.toString());
       });

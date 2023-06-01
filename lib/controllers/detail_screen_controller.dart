@@ -5,7 +5,7 @@ class DetailScreenProvider extends ChangeNotifier {
   Map details = {};
   String name = "";
   final DatabaseReference riyadhBusRef = FirebaseDatabase.instance.reference().child('riyadhBus');
-  final DatabaseReference mamoRef = FirebaseDatabase.instance.reference().child('mamo');
+  final DatabaseReference mamoRef = FirebaseDatabase.instance.reference().child('Mamo');
   final DatabaseReference zafranIndianBistroRef = FirebaseDatabase.instance.reference().child('zafranIndianBistro');
   final DatabaseReference taxiTerminalRef = FirebaseDatabase.instance.reference().child('taxiTerminal');
   final DatabaseReference yeloRef = FirebaseDatabase.instance.reference().child('yelo');

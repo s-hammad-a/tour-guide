@@ -8,10 +8,10 @@ class ReservationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dynamic args = ModalRoute.of(context)!.settings.arguments;
-    // if(args == null) {
-    //   Navigator.pop(context);
-    // }
-    // String name = args['name'].toString();
+    if(args == null) {
+      Navigator.pop(context);
+    }
+    String name = args['name'].toString();
     return Scaffold(
       backgroundColor: const Color(0xFFDCE3D3),
       appBar: AppBar(
@@ -34,18 +34,19 @@ class ReservationScreen extends StatelessWidget {
               "Reserve A Table",
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 20
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 30,),
             GestureDetector(
-              onTap: () {
-                showDatePicker(
+              onTap: () async {
+                Provider.of<ReservationProvider>(context, listen: false).updateDate((await showDatePicker(
                   context: context,
                   initialDate: DateTime.now().add(const Duration(days: 1)),
                   firstDate: DateTime.now().add(const Duration(days: 1)),
                   lastDate: DateTime.now().add(const Duration(days: 365)),
-                );
+                ))!);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
@@ -80,11 +81,11 @@ class ReservationScreen extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                showTimePicker(
+              onTap: () async {
+                Provider.of<ReservationProvider>(context, listen: false).updateTime((await showTimePicker(
                   context: context,
                   initialTime: const TimeOfDay(hour: 0, minute: 0),
-                );
+                ))!);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
@@ -116,6 +117,15 @@ class ReservationScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+            ),
+            const SizedBox(height: 20,),
+            const Text(
+              "Personal Details",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                fontWeight: FontWeight.bold
               ),
             ),
             const SizedBox(height: 20,),
@@ -176,10 +186,13 @@ class ReservationScreen extends StatelessWidget {
             ),
             const Expanded(child: SizedBox.shrink()),
             SizedBox(
-              height: 30,
+              height: 50,
               child: TextButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/reservationScreen');
+                onPressed: () async {
+                  bool check = await Provider.of<ReservationProvider>(context, listen: false).addReservation(context, name);
+                  if(check) {
+                    Navigator.pop(context);
+                  }
                 },
                 style: const ButtonStyle(
                     padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 30, vertical: 10)),

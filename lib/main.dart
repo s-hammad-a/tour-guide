@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:togu/controllers/booking_controller.dart';
 import 'package:togu/controllers/create_account_controller.dart';
 import 'package:togu/controllers/detail_screen_controller.dart';
 import 'package:togu/controllers/home_screen_controller.dart';
 import 'package:togu/controllers/log_in_controller.dart';
 import 'package:togu/controllers/reservation_controller.dart';
 import 'package:togu/firebase/firebase_auth.dart';
+import 'package:togu/screens/booking_screen.dart';
 import 'package:togu/screens/buses_screen.dart';
 import 'package:togu/screens/car_rental_screen.dart';
 import 'package:togu/screens/create_account_screen.dart';
@@ -65,6 +67,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CreateAccountProvider()),
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => ReservationProvider()),
+        ChangeNotifierProvider(create: (_) => BookingProvider()),
       ],
       child: FutureBuilder(
         future: initializeFirebase(),
@@ -92,6 +95,7 @@ class MyApp extends StatelessWidget {
                   "/detailScreen" : (context) => const DetailScreen(),
                   "/tourismScreen" : (context) => const TourismScreen(),
                   "/reservationScreen" : (context) => const ReservationScreen(),
+                  "/bookingScreen" : (context) => const BookingScreen(),
                 },
                 theme: ThemeData(
                   // This is the theme of your application.

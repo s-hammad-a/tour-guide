@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:togu/controllers/home_screen_controller.dart';
+import 'package:togu/firebase/firebase_auth.dart';
+import 'package:togu/screens/booking_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,9 +24,9 @@ class HomeScreen extends StatelessWidget {
                 child: Image.asset("assets/sample.png", height: 50, width: 50, fit: BoxFit.fill,)
             ),
             const SizedBox(width: 10,),
-            const Text(
-              "Welcome Asma",
-              style: TextStyle(
+            Text(
+              "Welcome ${AuthService().auth.currentUser!.displayName}",
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20
               ),
@@ -34,7 +36,7 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const BookmarkPage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 1 ? const HomePage() : const ProfilePage(),
+        child: Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const BookmarkPage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 1 ? const HomePage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 2 ? const BookingScreen(): const ProfilePage(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
