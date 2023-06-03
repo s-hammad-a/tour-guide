@@ -147,6 +147,19 @@ class BookingCard extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              width: 40,
+              child: IconButton(
+                onPressed: () {
+                  Provider.of<BookingProvider>(context, listen: false).deleteBooking(details.id);
+                },
+                icon: const Icon(
+                  Icons.cancel_outlined,
+                  color: Colors.red,
+                  size: 20,
+                ),
+              ),
             )
           ],
         ),

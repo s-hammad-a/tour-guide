@@ -1,14 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:togu/controllers/home_screen_controller.dart';
 import 'package:togu/firebase/firebase_auth.dart';
 import 'package:togu/screens/booking_screen.dart';
+import 'package:togu/screens/profile_screen.dart';
+import 'package:togu/screens/saved_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    User? user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: const Color(0xFFDCE3D3),
       appBar: AppBar(
@@ -16,19 +20,16 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           children: [
             const SizedBox(width: 10,),
-            Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Image.asset("assets/sample.png", height: 50, width: 50, fit: BoxFit.fill,)
+            CircleAvatar(
+              backgroundImage: NetworkImage(user.photoURL!.endsWith("||||") ? "https://firebasestorage.googleapis.com/v0/b/togu-b76f2.appspot.com/o/placeholder.png?alt=media&token=33688152-c4ef-4b7e-86f7-51f0b1911980&_gl=1*ekz999*_ga*NTE1MDUyNDU3LjE2ODE2Njg4OTY.*_ga_CW55HF8NVT*MTY4NTgxMjM4Mi4yMC4xLjE2ODU4MTM2NzcuMC4wLjA." : user.photoURL!.split("||||")[1]),
+              radius: 20,
             ),
             const SizedBox(width: 10,),
             Text(
               "Welcome ${AuthService().auth.currentUser!.displayName}",
               style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20
+                  fontSize: 15
               ),
             ),
           ],
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const BookmarkPage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 1 ? const HomePage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 2 ? const BookingScreen(): const ProfilePage(),
+        child: Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const SavedScreen() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 1 ? const HomePage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 2 ? const BookingScreen(): const ProfileScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -366,24 +367,6 @@ class HomePage extends StatelessWidget {
         // ),
       ],
     );
-  }
-}
-
-class BookmarkPage extends StatelessWidget {
-  const BookmarkPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
 

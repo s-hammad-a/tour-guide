@@ -8,7 +8,9 @@ import 'package:togu/controllers/create_account_controller.dart';
 import 'package:togu/controllers/detail_screen_controller.dart';
 import 'package:togu/controllers/home_screen_controller.dart';
 import 'package:togu/controllers/log_in_controller.dart';
+import 'package:togu/controllers/profile_screen_controller.dart';
 import 'package:togu/controllers/reservation_controller.dart';
+import 'package:togu/controllers/saved_screen_controller.dart';
 import 'package:togu/firebase/firebase_auth.dart';
 import 'package:togu/screens/booking_screen.dart';
 import 'package:togu/screens/buses_screen.dart';
@@ -20,6 +22,7 @@ import 'package:togu/screens/log_in_screen.dart';
 import 'package:togu/screens/other_screen.dart';
 import 'package:togu/screens/reservation_screen.dart';
 import 'package:togu/screens/restaurant_screen.dart';
+import 'package:togu/screens/saved_screen.dart';
 import 'package:togu/screens/splash_page.dart';
 import 'package:togu/screens/taxi_screen.dart';
 import 'package:togu/screens/tourism_screen.dart';
@@ -68,6 +71,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => ReservationProvider()),
         ChangeNotifierProvider(create: (_) => BookingProvider()),
+        ChangeNotifierProvider(create: (_) => SavedScreenProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileScreenProvider()),
       ],
       child: FutureBuilder(
         future: initializeFirebase(),
@@ -96,6 +101,7 @@ class MyApp extends StatelessWidget {
                   "/tourismScreen" : (context) => const TourismScreen(),
                   "/reservationScreen" : (context) => const ReservationScreen(),
                   "/bookingScreen" : (context) => const BookingScreen(),
+                  "/savedScreen" : (context) => const SavedScreen(),
                 },
                 theme: ThemeData(
                   // This is the theme of your application.

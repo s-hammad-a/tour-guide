@@ -25,6 +25,7 @@ class CreateAccountProvider extends ChangeNotifier {
       // });
       await databaseReference.child(AuthService().auth.currentUser!.uid).set({
         "Reservations" : "",
+        "Saved" : "",
       }).onError((error, stackTrace) {
         print(error.toString());
       });
@@ -33,7 +34,7 @@ class CreateAccountProvider extends ChangeNotifier {
     }).onError((error, stackTrace) {
       return false;
     });
-    await AuthService().auth.currentUser!.updatePhotoURL(phoneController.text);
+    await AuthService().auth.currentUser!.updatePhotoURL("${phoneController.text}||||");
     return check;
   }
 }

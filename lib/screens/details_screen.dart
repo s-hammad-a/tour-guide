@@ -29,7 +29,7 @@ class DetailScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF8F967A),
       ),
       body: FutureBuilder(
-        future: Provider.of<DetailScreenProvider>(context, listen: false).getFromDatabase(),
+        future: Provider.of<DetailScreenProvider>(context, listen: false).getFromDatabase(name),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.connectionState == ConnectionState.done) {
             return Column(
@@ -53,12 +53,18 @@ class DetailScreen extends StatelessWidget {
                                 style: const ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(Colors.white)
                                 ),
-                                icon: const Icon(
+                                icon: context.watch<DetailScreenProvider>().isSaved ? const Icon(
+                                  Icons.bookmark_added_outlined,
+                                  color: Colors.blue,
+                                  size: 20,
+                                ) : const Icon(
                                   Icons.bookmark_add_outlined,
                                   color: Colors.black,
                                   size: 20,
                                 ),
-                                onPressed: () {  },
+                                onPressed: () {
+                                  Provider.of<DetailScreenProvider>(context, listen: false).savePlace(name);
+                                },
                               ),
                               const SizedBox(width: 10,),
                             ],
