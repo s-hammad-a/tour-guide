@@ -1,31 +1,50 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:togu/firebase/firebase_auth.dart';
 
 class ProfileScreenProvider extends ChangeNotifier {
   TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController phone = TextEditingController();
   TextEditingController fullName = TextEditingController();
   String image = "assets/placeholder.png";
   String url = " ";
+  bool updateButton = false;
 
   bool checkInfo() {
-    return (email.text.isNotEmpty && password.text.isNotEmpty && fullName.text.isNotEmpty);
+    return (email.text.isNotEmpty && phone.text.isNotEmpty && fullName.text.isNotEmpty);
   }
-  void updateImage(User? user) {
-    url = user!.photoURL!;
+  void updateImage() {
+    url = AuthService().auth.currentUser!.photoURL!;
     notifyListeners();
   }
-  void updateInfo(User? user) async {
+  Future<void> updateInfo(BuildContext context, User? user) async {
     if(checkInfo()) {
-      if(user!.email != email.text) {
-        await user.updateEmail(email.text);
+      if(AuthService().auth.currentUser!.displayName != fullName.text) {
+        await AuthService().auth.currentUser !.updateDisplayName(fullName.text);
       }
-      if(user.displayName != fullName.text) {
-        await user.updateDisplayName(fullName.text);
+      await AuthService().auth.currentUser!.updatePhotoURL("${phone.text}||||${AuthService().auth.currentUser!.photoURL!.split("||||")[1]}");
+      await user!.reload();
+      updateButton = false;
+      if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email.text)) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Invalid Email"),
+        ));
+        updateButton = true;
       }
-      await user.updatePassword(password.text);
-      user.reload();
+      else if(AuthService().auth.currentUser!.email != email.text) {
+        await AuthService().auth.currentUser !.updateEmail(email.text);
+      }
       notifyListeners();
     }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Invalid Data"),
+      ));
+    }
+  }
+
+  void setUpdateButton(bool value) {
+    updateButton = value;
+    notifyListeners();
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'dart:typed_data';
 
-import 'package:file_picker_cross/file_picker_cross.dart';
+// import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +16,9 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print(AuthService().auth.currentUser!.photoURL);
     User? user = Provider.of<User>(context);
+    Provider.of<ProfileScreenProvider>(context, listen: false).fullName.text = AuthService().auth.currentUser!.displayName! ?? "";
+    Provider.of<ProfileScreenProvider>(context, listen: false).email.text = AuthService().auth.currentUser!.email! ?? "";
+    Provider.of<ProfileScreenProvider>(context, listen: false).phone.text = AuthService().auth.currentUser!.photoURL!.split("||||")[0] ?? "";
     return Column(
       children: [
         const SizedBox(height: 30,),
@@ -43,19 +46,19 @@ class ProfileScreen extends StatelessWidget {
         TextButton(
           style: const ButtonStyle(
             fixedSize: MaterialStatePropertyAll(Size(140, 20)),
-            backgroundColor: MaterialStatePropertyAll(Colors.black),
+              backgroundColor: MaterialStatePropertyAll(Color(0xFF151A4F),)
           ),
           onPressed: () async {
-            FilePickerCross myFile = await FilePickerCross.importFromStorage();
-            Uint8List fileBytes = myFile.toUint8List();
-            String fileName = myFile.fileName!;
-            StorageManager sm = StorageManager();
-            String? location = await sm.uploadFile(fileName, fileBytes);
-            if(location != null) {
-              print(location);
-              await user.updatePhotoURL(location);
-              Provider.of<ProfileScreenProvider>(context, listen: false).updateImage(user);
-            }
+            // FilePickerCross myFile = await FilePickerCross.importFromStorage();
+            // Uint8List fileBytes = myFile.toUint8List();
+            // String fileName = myFile.fileName!;
+            // StorageManager sm = StorageManager();
+            // String? location = await sm.uploadFile(fileName, fileBytes);
+            // if(location != null) {
+            //   print(location);
+            //   await user.updatePhotoURL(location);
+            //   Provider.of<ProfileScreenProvider>(context, listen: false).updateImage(user);
+            // }
           },
           child: const Text(
             "Update Profile Pic",
@@ -81,13 +84,35 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Text(
-                  user.displayName != null ? user.displayName! : " ",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                child: SizedBox(
+                  height: 40,
+                  child: TextFormField(
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    cursorColor: Colors.black,
+                    textAlignVertical: TextAlignVertical.center,
+                    controller: Provider.of<ProfileScreenProvider>(context, listen: false).fullName,
+                    onChanged: (value) {
+                      Provider.of<ProfileScreenProvider>(context, listen: false).setUpdateButton(true);
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xFFFEF7E7),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFABA0A0), width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      hintText: "Full Name",
+                      hintStyle: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          letterSpacing: 0.5
+                      ),
+                    ),
                   ),
-                  overflow: TextOverflow.visible,
                 ),
               ),
             ],
@@ -108,13 +133,35 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Text(
-                  user.email ??  " ",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                child: SizedBox(
+                  height: 40,
+                  child: TextFormField(
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    cursorColor: Colors.black,
+                    textAlignVertical: TextAlignVertical.center,
+                    controller: Provider.of<ProfileScreenProvider>(context, listen: false).email,
+                    onChanged: (value) {
+                      Provider.of<ProfileScreenProvider>(context, listen: false).setUpdateButton(true);
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xFFFEF7E7),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFABA0A0), width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      hintText: "Email",
+                      hintStyle: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          letterSpacing: 0.5
+                      ),
+                    ),
                   ),
-                  overflow: TextOverflow.visible,
                 ),
               ),
             ],
@@ -127,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(
                 width: 110,
                 child: Text(
-                  "Role: ",
+                  "Phone Number: ",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -135,18 +182,41 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Text(
-                  user.email!.contains("@helper.com") ? "Admin" : user.email!.contains("@uhb.edu.sa") ? "User": "Visitor",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    overflow: TextOverflow.visible,
+                child: SizedBox(
+                  height: 40,
+                  child: TextFormField(
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    cursorColor: Colors.black,
+                    textAlignVertical: TextAlignVertical.center,
+                    controller: Provider.of<ProfileScreenProvider>(context, listen: false).phone,
+                    onChanged: (value) {
+                      Provider.of<ProfileScreenProvider>(context, listen: false).setUpdateButton(true);
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xFFFEF7E7),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFABA0A0), width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      hintText: "Phone Number:",
+                      hintStyle: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          letterSpacing: 0.5
+                      ),
+                    ),
                   ),
                 ),
               ),
             ],
           ),
         ),
+        const UpdateButton(),
         const Expanded(child: SizedBox.shrink()),
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
@@ -157,7 +227,7 @@ class ProfileScreen extends StatelessWidget {
                 AuthService().signOut();
               },
               style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color(0xFF151A4F),)
+                backgroundColor: MaterialStatePropertyAll(Color(0xFF151A4F),)
               ),
               child: const Text(
                 "Sign Out",
@@ -175,3 +245,37 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
+class UpdateButton extends StatelessWidget {
+  const UpdateButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    User? user = Provider.of<User>(context);
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
+        child: SizedBox(
+          width: 250,
+          child: TextButton(
+            onPressed: () async {
+              if(Provider.of<ProfileScreenProvider>(context, listen: false).updateButton) {
+                await Provider.of<ProfileScreenProvider>(context, listen: false).updateInfo(context, user);
+              }
+            },
+            style: ButtonStyle(
+                backgroundColor: context.watch<ProfileScreenProvider>().updateButton ? const MaterialStatePropertyAll(Color(0xFF151A4F)) : const MaterialStatePropertyAll(Color(0x77151A4F))
+            ),
+            child: const Text(
+              "Update Info",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ),
+      );
+  }
+}
+

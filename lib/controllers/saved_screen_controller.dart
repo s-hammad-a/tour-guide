@@ -13,8 +13,6 @@ class SavedScreenProvider extends ChangeNotifier {
     await query.once().then((value) {
       for (var element in value.snapshot.children) {
         places.add((element.value as Map)['name']);
-        print(places.length);
-        // notifyListeners();
       }
     });
   }
