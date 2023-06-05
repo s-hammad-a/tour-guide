@@ -1,5 +1,3 @@
-import 'dart:html';
-import 'dart:typed_data';
 
 // import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
             // }
           },
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.photoURL!.endsWith("||||") ? "https://firebasestorage.googleapis.com/v0/b/togu-b76f2.appspot.com/o/placeholder.png?alt=media&token=33688152-c4ef-4b7e-86f7-51f0b1911980&_gl=1*ekz999*_ga*NTE1MDUyNDU3LjE2ODE2Njg4OTY.*_ga_CW55HF8NVT*MTY4NTgxMjM4Mi4yMC4xLjE2ODU4MTM2NzcuMC4wLjA." : user.photoURL!.split("||||")[1]),
+            backgroundImage: NetworkImage(user.photoURL == null || user.photoURL!.endsWith("||||") ? "https://firebasestorage.googleapis.com/v0/b/togu-b76f2.appspot.com/o/placeholder.png?alt=media&token=33688152-c4ef-4b7e-86f7-51f0b1911980&_gl=1*ekz999*_ga*NTE1MDUyNDU3LjE2ODE2Njg4OTY.*_ga_CW55HF8NVT*MTY4NTgxMjM4Mi4yMC4xLjE2ODU4MTM2NzcuMC4wLjA." : user.photoURL!.split("||||")[1]),
             radius: 50,
           ),
         ),

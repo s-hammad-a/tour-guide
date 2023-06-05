@@ -13,6 +13,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user = Provider.of<User>(context);
+    if(user.email!.contains("@togu.com")) {
+      Provider.of<HomeScreenProvider>(context, listen: false).isAdmin = true;
+      // Provider.of<HomeScreenProvider>(context, listen: false).currentIndex = 0;
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFDCE3D3),
       appBar: AppBar(
@@ -37,7 +41,7 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const SavedScreen() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 1 ? const HomePage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 2 ? const BookingScreen(): const ProfileScreen(),
+        child: Provider.of<HomeScreenProvider>(context, listen: false).isAdmin ? (Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const HomePage() : const ProfileScreen()) : (Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 0 ? const SavedScreen() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 1 ? const HomePage() : Provider.of<HomeScreenProvider>(context, listen: false).currentIndex == 2 ? const BookingScreen(): const ProfileScreen()),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -46,7 +50,32 @@ class HomeScreen extends StatelessWidget {
         onTap: (value) {
           Provider.of<HomeScreenProvider>(context, listen: false).setCurrentIndex(value);
         },
-        items: const [
+        items: Provider.of<HomeScreenProvider>(context, listen: false).isAdmin ? const [
+          BottomNavigationBarItem(
+            label: "Home",
+            activeIcon: Icon(
+              Icons.home_filled,
+              color: Colors.blue,
+              size: 30,
+            ),
+            icon: Icon(
+              Icons.home_filled,
+              color: Colors.white,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "Profile",
+            activeIcon: Icon(
+              Icons.person,
+              color: Colors.blue,
+              size: 30,
+            ),
+            icon: Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+          ),
+        ] : const [
           BottomNavigationBarItem(
             label: "Bookmarks",
             activeIcon: Icon(
