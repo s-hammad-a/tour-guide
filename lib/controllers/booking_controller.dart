@@ -15,12 +15,7 @@ class BookingProvider extends ChangeNotifier {
     Query query = databaseReference.child("${AuthService().auth.currentUser!.uid}/Reservations/");
     await query.once().then((value) {
       for (var element in value.snapshot.children) {
-        // jsonDecode(element.value.toString());
-        print("element.value");
-        print("pp${element.key}pp");
         bookings.add(BookingDetails.fromJson(element.value as Map, element.key.toString()));
-        print(bookings.length);
-        // notifyListeners();
       }
     });
   }
@@ -35,3 +30,5 @@ class BookingProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+

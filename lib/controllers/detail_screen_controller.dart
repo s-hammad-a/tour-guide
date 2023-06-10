@@ -73,8 +73,7 @@ class DetailScreenProvider extends ChangeNotifier {
 
   Future<void> savePlace(String name) async {
     if(!isSaved){
-      await savedRef.child(AuthService().auth.currentUser!.uid)
-          .child("Saved").push().set({
+      await savedRef.child(AuthService().auth.currentUser!.uid).child("Saved").push().set({
         "name": name,
       });
       isSaved = true;
@@ -83,7 +82,6 @@ class DetailScreenProvider extends ChangeNotifier {
       Query query = savedRef.child(AuthService().auth.currentUser!.uid).child("Saved");
       await query.once().then((value) {
         for (var element in value.snapshot.children) {
-          print(element.value);
           if((element.value as Map)['name'] == name) {
             savedRef.child(AuthService().auth.currentUser!.uid).child("Saved").child(element.key!).remove();
           }

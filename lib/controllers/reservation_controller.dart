@@ -21,7 +21,6 @@ class ReservationProvider extends ChangeNotifier {
       }).onError((error, stackTrace) {
         print(error.toString());
       });
-      print("done");
       return true;
     }
     return false;

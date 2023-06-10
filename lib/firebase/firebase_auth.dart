@@ -15,15 +15,13 @@ class AuthService {
   Stream<User?> get user {
     return auth.authStateChanges()
         .map(_userFromFirebaseUser);
-    //.map((User? user) => _userFromFirebaseUser(user));
   }
 
-  //sign in with email and password
+  //register with email and password
   Future registerWithEmailAndPassword(String email, String password, String name) async {
     try{
       UserCredential result = await auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      //create a new document for the user with id
       await user!.updateDisplayName(name);
       return _userFromFirebaseUser(user);
     }
@@ -33,7 +31,7 @@ class AuthService {
     }
   }
 
-  //register with email and password
+  //sign up with email and password
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
     try{
       UserCredential result = await auth.signInWithEmailAndPassword(email: email, password: password);
@@ -45,6 +43,8 @@ class AuthService {
       return null;
     }
   }
+
+
   // sign out
   Future signOut() async {
     try {
