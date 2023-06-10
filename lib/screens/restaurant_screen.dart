@@ -24,8 +24,9 @@ class RestaurantScreen extends StatelessWidget {
           const Text(
             "Available Restaurants",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 20
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
           Expanded(
@@ -118,7 +119,96 @@ class RestaurantScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(flex: 2, child: SizedBox.shrink()),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detailScreen', arguments: {
+                    "name" : "Cipriani",
+                  });
+                },
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: const DecorationImage(image: AssetImage("assets/Cipriani.jpg"), fit: BoxFit.fitWidth)
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Cipriani",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow( // bottomLeft
+                              offset: Offset(-1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // bottomRight
+                              offset: Offset(1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topRight
+                              offset: Offset(1.5, 1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topLeft
+                              offset: Offset(-1.5, 1.5),
+                              color: Colors.black
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detailScreen', arguments: {
+                    "name" : "IL baretto",
+                  });
+                },
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: const DecorationImage(image: AssetImage("assets/ILbaretto.jpg"), fit: BoxFit.fitWidth)
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "IL baretto",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow( // bottomLeft
+                              offset: Offset(-1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // bottomRight
+                              offset: Offset(1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topRight
+                              offset: Offset(1.5, 1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topLeft
+                              offset: Offset(-1.5, 1.5),
+                              color: Colors.black
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           const SizedBox(height: 30,),
         ],
       ),

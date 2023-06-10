@@ -24,8 +24,9 @@ class CarRentalScreen extends StatelessWidget {
           const Text(
             "Available Car Rentals",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 20
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
           Expanded(
@@ -73,7 +74,97 @@ class CarRentalScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(flex: 3, child: SizedBox.shrink()),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detailScreen', arguments: {
+                    "name" : "Yahma Company",
+                  });
+                },
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: const DecorationImage(image: AssetImage("assets/YahmaCompany.jpg"), fit: BoxFit.fitWidth)
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Yahma Company",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow( // bottomLeft
+                              offset: Offset(-1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // bottomRight
+                              offset: Offset(1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topRight
+                              offset: Offset(1.5, 1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topLeft
+                              offset: Offset(-1.5, 1.5),
+                              color: Colors.black
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detailScreen', arguments: {
+                    "name" : "Wasm Company",
+                  });
+                },
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: const DecorationImage(image: AssetImage("assets/wasm.jpg"), fit: BoxFit.fitWidth)
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Wasm Company",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow( // bottomLeft
+                              offset: Offset(-1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // bottomRight
+                              offset: Offset(1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topRight
+                              offset: Offset(1.5, 1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topLeft
+                              offset: Offset(-1.5, 1.5),
+                              color: Colors.black
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const Expanded(flex: 1, child: SizedBox.shrink()),
           const SizedBox(height: 30,),
         ],
       ),

@@ -24,8 +24,9 @@ class TravelPlanScreen extends StatelessWidget {
           const Text(
             "TOGU Travel Plans",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
           Expanded(

@@ -12,10 +12,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = Provider.of<User>(context);
-    if(user.email!.contains("@togu.com")) {
+    User? user = Provider.of<User?>(context);
+    if(user == null) {
+      Navigator.pop(context);
+    }
+    if(user!.email!.contains("@togu.com")) {
       Provider.of<HomeScreenProvider>(context, listen: false).isAdmin = true;
-      // Provider.of<HomeScreenProvider>(context, listen: false).currentIndex = 0;
+    }
+    else {
+      Provider.of<HomeScreenProvider>(context, listen: false).isAdmin = false;
     }
     return Scaffold(
       backgroundColor: const Color(0xFFDCE3D3),

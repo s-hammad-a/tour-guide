@@ -24,8 +24,9 @@ class TransportScreen extends StatelessWidget {
           const Text(
             "Available Services",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 20
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
           Expanded(

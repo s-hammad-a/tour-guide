@@ -24,8 +24,54 @@ class TaxiScreen extends StatelessWidget {
           const Text(
             "Available Taxi",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 20
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detailScreen', arguments: {
+                    "name" : "Go Taxi",
+                  });
+                },
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: const DecorationImage(image: AssetImage("assets/gotaxi.webp"), fit: BoxFit.fitWidth)
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Go Taxi",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow( // bottomLeft
+                              offset: Offset(-1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // bottomRight
+                              offset: Offset(1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topRight
+                              offset: Offset(1.5, 1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topLeft
+                              offset: Offset(-1.5, 1.5),
+                              color: Colors.black
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -73,7 +119,7 @@ class TaxiScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(flex: 3, child: SizedBox.shrink()),
+          const Expanded(flex: 2, child: SizedBox.shrink()),
           const SizedBox(height: 30,),
         ],
       ),
