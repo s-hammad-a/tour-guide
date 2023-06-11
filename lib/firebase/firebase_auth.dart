@@ -105,6 +105,7 @@ class AuthService {
       return user;
     }
     on FirebaseAuthException catch  (e) {
+      print(e.message);
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -143,7 +144,7 @@ class AuthService {
             content: SizedBox(
               width: 300,
               child: Text(
-                e.message!.split("Firebase: ")[1].split(" (")[0],
+                e.message!,
                 style: const TextStyle(
                   fontSize: 18,
                   color: Colors.white,

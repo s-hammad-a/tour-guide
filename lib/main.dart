@@ -13,7 +13,9 @@ import 'package:togu/controllers/log_in_controller.dart';
 import 'package:togu/controllers/profile_screen_controller.dart';
 import 'package:togu/controllers/reservation_controller.dart';
 import 'package:togu/controllers/saved_screen_controller.dart';
+import 'package:togu/controllers/tourism_screen_controller.dart';
 import 'package:togu/firebase/firebase_auth.dart';
+import 'package:togu/screens/add_tourism_screen.dart';
 import 'package:togu/screens/booking_screen.dart';
 import 'package:togu/screens/buses_screen.dart';
 import 'package:togu/screens/car_rental_screen.dart';
@@ -24,12 +26,14 @@ import 'package:togu/screens/edit_screen.dart';
 import 'package:togu/screens/home_screen.dart';
 import 'package:togu/screens/log_in_screen.dart';
 import 'package:togu/screens/other_screen.dart';
+import 'package:togu/screens/owner_reservation_screeen.dart';
 import 'package:togu/screens/reservation_screen.dart';
 import 'package:togu/screens/restaurant_screen.dart';
 import 'package:togu/screens/reviews_screen.dart';
 import 'package:togu/screens/saved_screen.dart';
 import 'package:togu/screens/splash_page.dart';
 import 'package:togu/screens/taxi_screen.dart';
+import 'package:togu/screens/tourism_details_screen.dart';
 import 'package:togu/screens/tourism_screen.dart';
 import 'package:togu/screens/transport_screen.dart';
 import 'package:togu/screens/travel_plan_screen.dart';
@@ -41,23 +45,18 @@ void main() {
 }
 
 Future<String> initializeFirebase() async {
-  if(kIsWeb) {
-    await Firebase.initializeApp(
-        options: const FirebaseOptions(
-            apiKey: "AIzaSyCBPrhO92KCGJWuTR-DnM-Felx7YOu3yRQ",
-            authDomain: "togu-b76f2.firebaseapp.com",
-            projectId: "togu-b76f2",
-            storageBucket: "togu-b76f2.appspot.com",
-            messagingSenderId: "851169553338",
-            appId: "1:851169553338:web:a64725a26e8cd9cfcbcb83",
-            measurementId: "G-DM1G51FR76",
-            databaseURL: "https://togu-b76f2-default-rtdb.firebaseio.com"
-        )
-    );
-  }
-  else {
-    await Firebase.initializeApp();
-  }
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyCBPrhO92KCGJWuTR-DnM-Felx7YOu3yRQ",
+          authDomain: "togu-b76f2.firebaseapp.com",
+          projectId: "togu-b76f2",
+          storageBucket: "togu-b76f2.appspot.com",
+          messagingSenderId: "851169553338",
+          appId: "1:851169553338:web:a64725a26e8cd9cfcbcb83",
+          measurementId: "G-DM1G51FR76",
+          databaseURL: "https://togu-b76f2-default-rtdb.firebaseio.com"
+      )
+  );
   // }
   await Future.delayed(const Duration(seconds: 2));
   return "done";
@@ -80,6 +79,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SavedScreenProvider()),
         ChangeNotifierProvider(create: (_) => ProfileScreenProvider()),
         ChangeNotifierProvider(create: (_) => EditScreenProvider()),
+        ChangeNotifierProvider(create: (_) => TourismScreenProvider()),
       ],
       child: FutureBuilder(
         future: initializeFirebase(),
@@ -112,6 +112,9 @@ class MyApp extends StatelessWidget {
                   "/reviewsScreen": (context) => const ReviewsScreen(),
                   "/cityScreen": (context) => const CityScreen(),
                   "/editScreen": (context) => const EditScreen(),
+                  "/ownerReservationScreen": (context) => const OwnerReservationScreen(),
+                  "/tourismDetailScreen": (context) => const TourismDetailScreen(),
+                  "/addTourismScreen": (context) => const AddTourismScreen(),
                 },
                 theme: ThemeData(
                   // This is the theme of your application.

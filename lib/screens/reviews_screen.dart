@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:togu/controllers/detail_screen_controller.dart';
 import 'package:togu/controllers/home_screen_controller.dart';
+import 'package:togu/firebase/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReviewsScreen extends StatelessWidget {
@@ -64,8 +65,8 @@ class ReviewsScreen extends StatelessWidget {
                                 )
                               ],
                             ),
-                            context.watch<HomeScreenProvider>().isAdmin ? const Expanded(child: SizedBox.shrink()) : const SizedBox.shrink(),
-                            context.watch<HomeScreenProvider>().isAdmin ? IconButton(
+                            context.watch<HomeScreenProvider>().isAdmin || AuthService().auth.currentUser!.email!.contains("@owner.com") ? const Expanded(child: SizedBox.shrink()) : const SizedBox.shrink(),
+                            context.watch<HomeScreenProvider>().isAdmin || AuthService().auth.currentUser!.email!.contains("@owner.com")? IconButton(
                               icon: const Icon(
                                 Icons.delete,
                                 color: Colors.black,

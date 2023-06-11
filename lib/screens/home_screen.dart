@@ -7,6 +7,8 @@ import 'package:togu/screens/booking_screen.dart';
 import 'package:togu/screens/profile_screen.dart';
 import 'package:togu/screens/saved_screen.dart';
 
+import '../controllers/profile_screen_controller.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -28,11 +30,6 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF8F967A),
         title: Row(
           children: [
-            const SizedBox(width: 10,),
-            CircleAvatar(
-              backgroundImage: NetworkImage(user.photoURL == null || user.photoURL!.endsWith("||||") ? "https://firebasestorage.googleapis.com/v0/b/togu-b76f2.appspot.com/o/placeholder.png?alt=media&token=33688152-c4ef-4b7e-86f7-51f0b1911980&_gl=1*ekz999*_ga*NTE1MDUyNDU3LjE2ODE2Njg4OTY.*_ga_CW55HF8NVT*MTY4NTgxMjM4Mi4yMC4xLjE2ODU4MTM2NzcuMC4wLjA." : user.photoURL!.split("||||")[1]),
-              radius: 20,
-            ),
             const SizedBox(width: 10,),
             Text(
               "Welcome ${AuthService().auth.currentUser!.displayName}",

@@ -1,8 +1,14 @@
 
 // import 'package:file_picker_cross/file_picker_cross.dart';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:togu/controllers/home_screen_controller.dart';
 import 'package:togu/controllers/profile_screen_controller.dart';
 import 'package:togu/firebase/firebase_auth.dart';
 import 'package:togu/firebase/firebase_storage.dart';
@@ -22,22 +28,27 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 30,),
         TextButton(
           onPressed: () async {
-            // FilePickerCross myFile = await FilePickerCross.importFromStorage();
-            // Uint8List fileBytes = myFile.toUint8List();
-            // String fileName = myFile.fileName!;
-            // StorageManager sm = StorageManager();
-            // String? location = await sm.uploadFile(fileName, fileBytes);
-            // if(location != null) {
-            //   print(location);
-            //   await user!.updatePhotoURL(location);
-            //   await user.reload();
-            //   Provider.of<EditProfileProvider>(context, listen: false).updateImage(user);
-            //   Provider.of<HomeScreenProvider>(context, listen: false).jumpToPage(3, user);
-            // }
+            print(await Permission.storage.request());
+            print(await Permission.photos.request());
+            print(await Permission.accessMediaLocation.request());
+            print(await Permission.manageExternalStorage.request());
+            FilePickerResult? result = await FilePicker.platform.pickFiles();
+            if (result != null) {
+              File file = File(result.files.single.path!);
+              Uint8List fileBytes = await file.readAsBytes();
+              StorageManager sm = StorageManager();
+              String? location = await sm.uploadFile(fileBytes);
+              if(location != null) {
+                await AuthService().auth.currentUser!.updatePhotoURL("${AuthService().auth.currentUser!.photoURL!.split("||||")[0]}||||$location");
+                await AuthService().auth.currentUser!.reload();
+                Provider.of<ProfileScreenProvider>(context, listen: false).updateImage();
+                Provider.of<HomeScreenProvider>(context, listen: false).setCurrentIndex(3);
+              }
+            }
           },
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.photoURL == null || user.photoURL!.endsWith("||||") ? "https://firebasestorage.googleapis.com/v0/b/togu-b76f2.appspot.com/o/placeholder.png?alt=media&token=33688152-c4ef-4b7e-86f7-51f0b1911980&_gl=1*ekz999*_ga*NTE1MDUyNDU3LjE2ODE2Njg4OTY.*_ga_CW55HF8NVT*MTY4NTgxMjM4Mi4yMC4xLjE2ODU4MTM2NzcuMC4wLjA." : user.photoURL!.split("||||")[1]),
-            radius: 50,
+            backgroundImage: NetworkImage(AuthService().auth.currentUser!.photoURL == null || AuthService().auth.currentUser!.photoURL!.endsWith("||||") ? "https://firebasestorage.googleapis.com/v0/b/togu-b76f2.appspot.com/o/placeholder.png?alt=media&token=33688152-c4ef-4b7e-86f7-51f0b1911980&_gl=1*ekz999*_ga*NTE1MDUyNDU3LjE2ODE2Njg4OTY.*_ga_CW55HF8NVT*MTY4NTgxMjM4Mi4yMC4xLjE2ODU4MTM2NzcuMC4wLjA." : AuthService().auth.currentUser!.photoURL!.split("||||")[1],),
+            radius: context.watch<ProfileScreenProvider>().url == " " ? 50 : 50,
           ),
         ),
         const SizedBox(height: 10,),
@@ -47,16 +58,23 @@ class ProfileScreen extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(Color(0xFF151A4F),)
           ),
           onPressed: () async {
-            // FilePickerCross myFile = await FilePickerCross.importFromStorage();
-            // Uint8List fileBytes = myFile.toUint8List();
-            // String fileName = myFile.fileName!;
-            // StorageManager sm = StorageManager();
-            // String? location = await sm.uploadFile(fileName, fileBytes);
-            // if(location != null) {
-            //   print(location);
-            //   await user.updatePhotoURL(location);
-            //   Provider.of<ProfileScreenProvider>(context, listen: false).updateImage(user);
-            // }
+            print(await Permission.storage.request());
+            print(await Permission.photos.request());
+            print(await Permission.accessMediaLocation.request());
+            print(await Permission.manageExternalStorage.request());
+            FilePickerResult? result = await FilePicker.platform.pickFiles();
+            if (result != null) {
+              File file = File(result.files.single.path!);
+              Uint8List fileBytes = await file.readAsBytes();
+              StorageManager sm = StorageManager();
+              String? location = await sm.uploadFile(fileBytes);
+              if(location != null) {
+                await AuthService().auth.currentUser!.updatePhotoURL("${AuthService().auth.currentUser!.photoURL!.split("||||")[0]}||||$location");
+                await AuthService().auth.currentUser!.reload();
+                Provider.of<ProfileScreenProvider>(context, listen: false).updateImage();
+                Provider.of<HomeScreenProvider>(context, listen: false).setCurrentIndex(3);
+              }
+            }
           },
           child: const Text(
             "Update Profile Pic",

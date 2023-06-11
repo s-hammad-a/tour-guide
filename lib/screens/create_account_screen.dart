@@ -53,7 +53,7 @@ class CreateAccountScreen extends StatelessWidget {
                               fontSize: 20,
                             ),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                              FilteringTextInputFormatter.allow(RegExp("[ a-zA-Z]")),
                             ],
                             controller: context.watch<CreateAccountProvider>().nameController,
                             decoration: const InputDecoration(

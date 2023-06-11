@@ -138,7 +138,7 @@ class ReservationScreen extends StatelessWidget {
                   fontSize: 20,
                 ),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                  FilteringTextInputFormatter.allow(RegExp("[ a-zA-Z]")),
                 ],
                 keyboardType: TextInputType.text,
                 controller: context.watch<ReservationProvider>().nameController,

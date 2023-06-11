@@ -50,6 +50,7 @@ class CreateAccountProvider extends ChangeNotifier {
       return false;
     });
     await AuthService().auth.currentUser!.updatePhotoURL("${phoneController.text}||||");
+    await AuthService().auth.currentUser!.reload();
     return check;
   }
 }

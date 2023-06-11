@@ -9,7 +9,7 @@ class BookingDetails {
 
   BookingDetails.fromJson(Map<dynamic, dynamic> json, String value)
       : date = DateTime.parse(json['date'] as String),
-        restaurant = json['restaurant'] as String,
+        restaurant = json['restaurant'] == null ? json['id'] as String : json['restaurant'] as String,
         name = json['name'] as String,
         phone = json['contact'] as String,
         time = json['time'] as String,

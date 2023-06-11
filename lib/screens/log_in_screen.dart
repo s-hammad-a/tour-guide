@@ -109,8 +109,128 @@ class LoginScreen extends StatelessWidget {
                               backgroundColor: MaterialStatePropertyAll(Color(0x00A5AA94)),
                               padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 5)),
                             ),
-                            onPressed: () {
-
+                            onPressed: () async {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: const Color(0xFFBFB6AA),
+                                    shape: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Color(0xFF545454), width: 1.0),
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                    ),
+                                    titlePadding: EdgeInsets.zero,
+                                    title: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF8F967A),
+                                        borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                                      ),
+                                      padding: const EdgeInsets.only(left: 20),
+                                      height: 40,
+                                      child: const Row(
+                                        children: [
+                                          Icon(
+                                            Icons.info_outline,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(width: 10,),
+                                          Text(
+                                            'Password Reset',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    content: SizedBox(
+                                      height: 120,
+                                      width: 400,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 30,
+                                            width: 570,
+                                            child: Text(
+                                              " Enter Email Address",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10,),
+                                          SizedBox(
+                                            width: 580,
+                                            height: 80,
+                                            child: TextFormField(
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                              ),
+                                              controller: context.watch<LoginProvider>().resetEmailController,
+                                              decoration: InputDecoration(
+                                                hintText: "Email Address",
+                                                hintStyle: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                ),
+                                                helperText: context.watch<LoginProvider>().helperText,
+                                                helperStyle: const TextStyle(
+                                                    color: Colors.red
+                                                ),
+                                                border: const UnderlineInputBorder(
+                                                  borderSide: BorderSide(color: Colors.white),
+                                                ),
+                                                focusedBorder: const UnderlineInputBorder(
+                                                  borderSide: BorderSide(color: Colors.white),
+                                                ),
+                                                enabledBorder: const UnderlineInputBorder(
+                                                  borderSide: BorderSide(color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        style: const ButtonStyle(
+                                            backgroundColor: MaterialStatePropertyAll(Color(0xFF8F967A))
+                                        ),
+                                        onPressed: () async {
+                                          if(Provider.of<LoginProvider>(context, listen: false).checkInfo()) {
+                                            await AuthService().auth.sendPasswordResetEmail(email: Provider.of<LoginProvider>(context, listen: false).resetEmailController.text).whenComplete(() => Navigator.pop(context));
+                                          }
+                                        },
+                                        child: const Text(
+                                          'Confirm',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        style: const ButtonStyle(
+                                            backgroundColor: MaterialStatePropertyAll(Color(0xFF8F967A))
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             child: const Text(
                               "Forgot Password?",
@@ -134,7 +254,74 @@ class LoginScreen extends StatelessWidget {
                                 padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 5)),
                               ),
                               onPressed: () {
-                                AuthService().signInWithEmailAndPassword(Provider.of<LoginProvider>(context, listen: false).emailController.text, Provider.of<LoginProvider>(context, listen: false).passwordController.text, context);
+                                if(Provider.of<LoginProvider>(context, listen: false).emailController.text.isNotEmpty && Provider.of<LoginProvider>(context, listen: false).passwordController.text.isNotEmpty) {
+                                  AuthService().signInWithEmailAndPassword(Provider.of<LoginProvider>(context, listen: false).emailController.text, Provider.of<LoginProvider>(context, listen: false).passwordController.text, context);
+                                }
+                                else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: const Color(0xFFBFB6AA),
+                                        shape: const OutlineInputBorder(
+                                          borderSide: BorderSide(color: Color(0xFF545454), width: 1.0),
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        ),
+                                        titlePadding: EdgeInsets.zero,
+                                        title: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xFF8F967A),
+                                            borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                                          ),
+                                          padding: const EdgeInsets.only(left: 20),
+                                          height: 40,
+                                          child: const Row(
+                                            children: [
+                                              Icon(
+                                                Icons.warning_amber,
+                                                size: 20,
+                                                color: Colors.red,
+                                              ),
+                                              SizedBox(width: 10,),
+                                              Text(
+                                                'Warning',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        content: const SizedBox(
+                                          width: 300,
+                                          child: Text(
+                                            "Please fill all the fields",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        actions: [
+                                          ElevatedButton(
+                                            style: const ButtonStyle(
+                                                backgroundColor: MaterialStatePropertyAll(Color(0xFF8F967A))
+                                            ),
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text(
+                                              'Okay',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );                                }
                                 // Navigator.pushNamed(context, '/homeScreen');
                               },
                               icon: const Icon(

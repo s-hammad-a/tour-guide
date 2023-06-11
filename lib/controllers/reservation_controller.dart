@@ -21,6 +21,15 @@ class ReservationProvider extends ChangeNotifier {
       }).onError((error, stackTrace) {
         print(error.toString());
       });
+      await FirebaseDatabase.instance.reference().child(name).child("Reservations").push().set({
+        "id" : AuthService().auth.currentUser!.uid,
+        "date" : date.toString(),
+        "time" : time.format(context),
+        "name" : nameController.text,
+        "contact" : phoneController.text
+      }).onError((error, stackTrace) {
+        print(error.toString());
+      });
       return true;
     }
     return false;
