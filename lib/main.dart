@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:togu/controllers/booking_controller.dart';
@@ -40,22 +41,23 @@ void main() {
 }
 
 Future<String> initializeFirebase() async {
-  // if(Platform.isAndroid) {
-  //   print("initialized");
-  //   await Firebase.initializeApp();
-  // }
-  // else {
-  print("initialized");
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyCBPrhO92KCGJWuTR-DnM-Felx7YOu3yRQ",
-          authDomain: "togu-b76f2.firebaseapp.com",
-          projectId: "togu-b76f2",
-          storageBucket: "togu-b76f2.appspot.com",
-          messagingSenderId: "851169553338",
-          appId: "1:851169553338:web:a64725a26e8cd9cfcbcb83",
-          measurementId: "G-DM1G51FR76",
-          databaseURL: "https://togu-b76f2-default-rtdb.firebaseio.com"));
+  if(kIsWeb) {
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "AIzaSyCBPrhO92KCGJWuTR-DnM-Felx7YOu3yRQ",
+            authDomain: "togu-b76f2.firebaseapp.com",
+            projectId: "togu-b76f2",
+            storageBucket: "togu-b76f2.appspot.com",
+            messagingSenderId: "851169553338",
+            appId: "1:851169553338:web:a64725a26e8cd9cfcbcb83",
+            measurementId: "G-DM1G51FR76",
+            databaseURL: "https://togu-b76f2-default-rtdb.firebaseio.com"
+        )
+    );
+  }
+  else {
+    await Firebase.initializeApp();
+  }
   // }
   await Future.delayed(const Duration(seconds: 2));
   return "done";

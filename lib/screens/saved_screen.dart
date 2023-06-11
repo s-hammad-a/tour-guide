@@ -68,7 +68,39 @@ class PlaceCard extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
-                image: AssetImage(name == "Mamo" ? "assets/mamo.webp" : name == "Zafran Indian Bistro" ? "assets/resterent.jpg" : name == "Riyadh Bus" ? "assets/bus.jpg" : name == "Taxi Terminal" ? "assets/Riyadh-taxi.webp" : name == "YELO" ? "assets/yelo.jpeg" : name == "Boulevard World" ? "assets/Gltlnipw-boulevard.jpg" : name == "National Museum of Saudi Arabia" ? "assets/Saa.webp" : "assets/travel_plans.jpg"),
+                image: AssetImage(name == "Mamo"
+                    ? "assets/mamo.webp"
+                    : name == "Zafran Indian Bistro"
+                    ? "assets/resterent.jpg"
+                    : name == "Riyadh Bus"
+                    ? "assets/bus.jpg"
+                    : name == "Taxi Terminal"
+                    ? "assets/Riyadh-taxi.webp"
+                    : name == "YELO"
+                    ? "assets/yelo.jpeg"
+                    : name == "Boulevard World"
+                    ? "assets/Gltlnipw-boulevard.jpg"
+                    : name == "National Museum of Saudi Arabia"
+                    ? "assets/Saa.webp"
+                    : name == "Hilton Riyadh"
+                    ? "assets/hiltonRiyadh.png"
+                    : name == "SAPTCO"
+                    ? "assets/bussaptco.jpg"
+                    : name == "Go Taxi"
+                    ? "assets/gotaxi.webp"
+                    : name == "Yahma Company"
+                    ? "assets/YahmaCompany.jpg"
+                    : name == "Wasm Company"
+                    ? "assets/wasm.jpg"
+                    : name == "Al-Bujairi View"
+                    ? "assets/AlBujairview.jpg"
+                    : name == "Last Hour"
+                    ? "assets/LastHour.jpg"
+                    : name == "Cipriani"
+                    ? "assets/Cipriani.jpg"
+                    : name == "IL baretto"
+                    ? "assets/ILbaretto.jpg"
+                    : "assets/travel_plans.jpg",),
                 fit: BoxFit.fill
             ),
         ),

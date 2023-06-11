@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:togu/controllers/create_account_controller.dart';
 
@@ -51,6 +52,9 @@ class CreateAccountScreen extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 20,
                             ),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                            ],
                             controller: context.watch<CreateAccountProvider>().nameController,
                             decoration: const InputDecoration(
                               hintText: "Full Name",
@@ -108,6 +112,9 @@ class CreateAccountScreen extends StatelessWidget {
                               fontSize: 20,
                             ),
                             keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             controller: context.watch<CreateAccountProvider>().phoneController,
                             decoration: const InputDecoration(
                               hintText: "Phone",
@@ -197,11 +204,78 @@ class CreateAccountScreen extends StatelessWidget {
                                   padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 5)),
                                 ),
                                 onPressed: () async {
-                                  if(Provider.of<CreateAccountProvider>(context, listen: false).checkPassword()) {
-                                    bool check = await Provider.of<CreateAccountProvider>(context, listen: false).createAccount();
+                                  String str = Provider.of<CreateAccountProvider>(context, listen: false).checkCredentials();
+                                  if(str == "done") {
+                                    bool check = await Provider.of<CreateAccountProvider>(context, listen: false).createAccount(context);
                                     if(check) {
                                       Navigator.pushNamed(context, '/wrapper');
                                     }
+                                  }
+                                  else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          backgroundColor: const Color(0xFFBFB6AA),
+                                          shape: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: Color(0xFF545454), width: 1.0),
+                                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                          ),
+                                          titlePadding: EdgeInsets.zero,
+                                          title: Container(
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFF8F967A),
+                                              borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                                            ),
+                                            padding: const EdgeInsets.only(left: 20),
+                                            height: 40,
+                                            child: const Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.warning_amber,
+                                                  size: 20,
+                                                  color: Colors.red,
+                                                ),
+                                                SizedBox(width: 10,),
+                                                Text(
+                                                  'Warning',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          content: SizedBox(
+                                            width: 300,
+                                            child: Text(
+                                              str,
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          actions: [
+                                            ElevatedButton(
+                                              style: const ButtonStyle(
+                                                  backgroundColor: MaterialStatePropertyAll(Color(0xFF8F967A))
+                                              ),
+                                              onPressed: () async {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Okay',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   }
                                 },
                                 icon: const Icon(

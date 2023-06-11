@@ -191,7 +191,6 @@ class EditScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
             SizedBox(
-              height: 240,
               child: TextFormField(
                 minLines: 1,
                 maxLines: 6,
@@ -223,7 +222,7 @@ class EditScreen extends StatelessWidget {
             ),
             const Expanded(child: SizedBox.shrink()),
             const UpdateButton(),
-            const SizedBox(height: 40,),
+            const SizedBox(height: 20,),
           ],
         ),
       ),
@@ -236,7 +235,6 @@ class UpdateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = Provider.of<User>(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
       child: SizedBox(

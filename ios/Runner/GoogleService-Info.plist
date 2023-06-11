@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyA6fO-hZG3LoQ0C60lOJj5Ett_o_dGjzmk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>851169553338</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.togu</string>
+	<key>PROJECT_ID</key>
+	<string>togu-b76f2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>togu-b76f2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:851169553338:ios:0f9c9207299ba0cbcbcb83</string>
+	<key>DATABASE_URL</key>
+	<string>https://togu-b76f2-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

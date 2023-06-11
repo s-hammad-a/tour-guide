@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:togu/controllers/reservation_controller.dart';
 
@@ -136,6 +137,9 @@ class ReservationScreen extends StatelessWidget {
                   color: Colors.black,
                   fontSize: 20,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                ],
                 keyboardType: TextInputType.text,
                 controller: context.watch<ReservationProvider>().nameController,
                 decoration: const InputDecoration(
@@ -164,6 +168,9 @@ class ReservationScreen extends StatelessWidget {
                   color: Colors.black,
                   fontSize: 20,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ],
                 keyboardType: TextInputType.phone,
                 controller: context.watch<ReservationProvider>().phoneController,
                 decoration: const InputDecoration(
@@ -188,11 +195,70 @@ class ReservationScreen extends StatelessWidget {
             SizedBox(
               height: 50,
               child: TextButton(
-                onPressed: () async {
-                  bool check = await Provider.of<ReservationProvider>(context, listen: false).addReservation(context, name);
-                  if(check) {
-                    Navigator.pop(context);
-                  }
+                onPressed: () {
+                  Provider.of<ReservationProvider>(context, listen: false).addReservation(context, name).then((value) async {
+                    if(value) {
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: const Color(0xFFBFB6AA),
+                            shape: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFF545454), width: 1.0),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                            titlePadding: EdgeInsets.zero,
+                            title: Container(
+                              decoration: const BoxDecoration(
+                                color: Color(0xFF8F967A),
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                              ),
+                              padding: const EdgeInsets.only(left: 20),
+                              height: 40,
+                              child: const Row(
+                                children: [
+                                  SizedBox(width: 10,),
+                                  Text(
+                                    'Success',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            content: const SizedBox(
+                              width: 300,
+                              child: Text(
+                                "Booking confirmed",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(Color(0xFF8F967A))
+                                ),
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  'Okay',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ).whenComplete(() => Navigator.pop(context));
+                    }
+                  });
                 },
                 style: const ButtonStyle(
                     padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 30, vertical: 10)),

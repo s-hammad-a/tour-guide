@@ -81,7 +81,39 @@ class BookingCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
                   image: DecorationImage(
-                    image: AssetImage(details.restaurant == "Mamo" ? "assets/mamo.webp" : details.restaurant == "Zafran Indian Bistro" ? "assets/resterent.jpg" : "assets/travel_plans.jpg"),
+                    image: AssetImage(details.restaurant == "Mamo"
+                        ? "assets/mamo.webp"
+                        : details.restaurant == "Zafran Indian Bistro"
+                        ? "assets/resterent.jpg"
+                        : details.restaurant == "Riyadh Bus"
+                        ? "assets/bus.jpg"
+                        : details.restaurant == "Taxi Terminal"
+                        ? "assets/Riyadh-taxi.webp"
+                        : details.restaurant == "YELO"
+                        ? "assets/yelo.jpeg"
+                        : details.restaurant == "Boulevard World"
+                        ? "assets/Gltlnipw-boulevard.jpg"
+                        : details.restaurant == "National Museum of Saudi Arabia"
+                        ? "assets/Saa.webp"
+                        : details.restaurant == "Hilton Riyadh"
+                        ? "assets/hiltonRiyadh.png"
+                        : details.restaurant == "SAPTCO"
+                        ? "assets/bussaptco.jpg"
+                        : details.restaurant == "Go Taxi"
+                        ? "assets/gotaxi.webp"
+                        : details.restaurant == "Yahma Company"
+                        ? "assets/YahmaCompany.jpg"
+                        : details.restaurant == "Wasm Company"
+                        ? "assets/wasm.jpg"
+                        : details.restaurant == "Al-Bujairi View"
+                        ? "assets/AlBujairview.jpg"
+                        : details.restaurant == "Last Hour"
+                        ? "assets/LastHour.jpg"
+                        : details.restaurant == "Cipriani"
+                        ? "assets/Cipriani.jpg"
+                        : details.restaurant == "IL baretto"
+                        ? "assets/ILbaretto.jpg"
+                        : "assets/travel_plans.jpg",),
                     fit: BoxFit.fill
                   ),
                 ),

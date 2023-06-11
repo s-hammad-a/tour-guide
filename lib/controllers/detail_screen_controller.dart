@@ -124,8 +124,41 @@ class DetailScreenProvider extends ChangeNotifier {
     await query.once().then((value) {
       for(var element in value.snapshot.children) {
         reviews.add(element.value as Map);
+        reviews.last.putIfAbsent("id", () => element.key);
       }
     });
+  }
+
+  Future<void> deleteReviews(String id) async {
+    DatabaseReference ref = name == "Mamo" ? mamoRef : name == "Zafran Indian Bistro"
+        ? zafranIndianBistroRef
+        : name == "Riyadh Bus" ? riyadhBusRef : name == "Taxi Terminal"
+        ? taxiTerminalRef
+        : name == "YELO" ? yeloRef : name == "Boulevard World"
+        ? boulevardWorldRef
+        : name == "National Museum of Saudi Arabia"
+        ? museumRef
+        : name == "Hilton Riyadh"
+        ? hiltonRiyadhRef
+        : name == "SAPTCO"
+        ? saptcoRef
+        : name == "Yahma Company"
+        ? yahmaCompanyRef
+        : name == "Wasm Company"
+        ? wasmCompanyRef
+        : name == "Al-Bujairi View"
+        ? alBujairiviewRef
+        : name == "Last Hour"
+        ? lastHourRef
+        : name == "Cipriani"
+        ? ciprianiRef
+        : name == "IL baretto"
+        ? iLbrettoRef
+        : name == "Go Taxi"
+        ? goTaxiRef : tempRef;
+    await ref.child("Reviews").child(id).remove();
+    reviews.removeWhere((element) => element['id'] == id);
+    notifyListeners();
   }
 
   Future<void> addReviews() async {
@@ -167,5 +200,5 @@ class DetailScreenProvider extends ChangeNotifier {
     review.clear();
     notifyListeners();
   }
-
 }
+

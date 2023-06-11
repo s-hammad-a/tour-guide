@@ -134,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                                 padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 0, horizontal: 5)),
                               ),
                               onPressed: () {
-                                AuthService().signInWithEmailAndPassword(Provider.of<LoginProvider>(context, listen: false).emailController.text, Provider.of<LoginProvider>(context, listen: false).passwordController.text);
+                                AuthService().signInWithEmailAndPassword(Provider.of<LoginProvider>(context, listen: false).emailController.text, Provider.of<LoginProvider>(context, listen: false).passwordController.text, context);
                                 // Navigator.pushNamed(context, '/homeScreen');
                               },
                               icon: const Icon(
