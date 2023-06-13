@@ -50,6 +50,16 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: const Color(0x888496A2),
         currentIndex: context.watch<HomeScreenProvider>().currentIndex,
         onTap: (value) {
+          if(Provider.of<HomeScreenProvider>(context, listen: false).isAdmin && value  == 1) {
+            Provider.of<ProfileScreenProvider>(context, listen: false).fullName.text = AuthService().auth.currentUser!.displayName! ?? "";
+            Provider.of<ProfileScreenProvider>(context, listen: false).email.text = AuthService().auth.currentUser!.email! ?? "";
+            Provider.of<ProfileScreenProvider>(context, listen: false).phone.text = AuthService().auth.currentUser!.photoURL!.split("||||")[0] ?? "";
+          }
+          else if (value == 3) {
+            Provider.of<ProfileScreenProvider>(context, listen: false).fullName.text = AuthService().auth.currentUser!.displayName! ?? "";
+            Provider.of<ProfileScreenProvider>(context, listen: false).email.text = AuthService().auth.currentUser!.email! ?? "";
+            Provider.of<ProfileScreenProvider>(context, listen: false).phone.text = AuthService().auth.currentUser!.photoURL!.split("||||")[0] ?? "";
+          }
           Provider.of<HomeScreenProvider>(context, listen: false).setCurrentIndex(value);
         },
         items: Provider.of<HomeScreenProvider>(context, listen: false).isAdmin ? const [

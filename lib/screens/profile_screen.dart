@@ -18,11 +18,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(AuthService().auth.currentUser!.photoURL);
-    User? user = Provider.of<User>(context);
-    Provider.of<ProfileScreenProvider>(context, listen: false).fullName.text = AuthService().auth.currentUser!.displayName! ?? "";
-    Provider.of<ProfileScreenProvider>(context, listen: false).email.text = AuthService().auth.currentUser!.email! ?? "";
-    Provider.of<ProfileScreenProvider>(context, listen: false).phone.text = AuthService().auth.currentUser!.photoURL!.split("||||")[0] ?? "";
     return Column(
       children: [
         const SizedBox(height: 30,),
@@ -48,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
           },
           child: CircleAvatar(
             backgroundImage: NetworkImage(AuthService().auth.currentUser!.photoURL == null || AuthService().auth.currentUser!.photoURL!.endsWith("||||") ? "https://firebasestorage.googleapis.com/v0/b/togu-b76f2.appspot.com/o/placeholder.png?alt=media&token=33688152-c4ef-4b7e-86f7-51f0b1911980&_gl=1*ekz999*_ga*NTE1MDUyNDU3LjE2ODE2Njg4OTY.*_ga_CW55HF8NVT*MTY4NTgxMjM4Mi4yMC4xLjE2ODU4MTM2NzcuMC4wLjA." : AuthService().auth.currentUser!.photoURL!.split("||||")[1],),
-            radius: context.watch<ProfileScreenProvider>().url == " " ? 50 : 50,
+            radius: 50,
           ),
         ),
         const SizedBox(height: 10,),

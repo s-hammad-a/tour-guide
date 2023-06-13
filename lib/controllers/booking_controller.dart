@@ -8,6 +8,7 @@ import '../firebase/firebase_auth.dart';
 
 class BookingProvider extends ChangeNotifier {
   List<BookingDetails> bookings = [];
+  List<Map> tourismBookings = [];
   final DatabaseReference riyadhBusRef = FirebaseDatabase.instance.reference().child('riyadhBus').child("Reservations");
   final DatabaseReference mamoRef = FirebaseDatabase.instance.reference().child('Mamo').child("Reservations");
   final DatabaseReference zafranIndianBistroRef = FirebaseDatabase.instance.reference().child('zafranIndianBistro').child("Reservations");
@@ -29,16 +30,26 @@ class BookingProvider extends ChangeNotifier {
 
   Future<void> getBookings() async {
     bookings = [];
+    tourismBookings = [];
     Query query = databaseReference.child("${AuthService().auth.currentUser!.uid}/Reservations/");
     await query.once().then((value) {
       for (var element in value.snapshot.children) {
-        bookings.add(BookingDetails.fromJson(element.value as Map, element.key.toString()));
+        print(element.value);
+        Map map = element.value as Map;
+        if(map['type'] == null ){
+          bookings.add(BookingDetails.fromJson(element.value as Map, element.key.toString()));
+        }
+        else {
+          tourismBookings.add(map);
+          tourismBookings.last.putIfAbsent("ids", () => element.key);
+        }
       }
     });
   }
 
   Future<void> getRestaurantBookings(String name) async {
     bookings = [];
+    tourismBookings = [];
     Query query = name == "Mamo" ? mamoRef : name == "Zafran Indian Bistro"
         ? zafranIndianBistroRef
         : name == "Riyadh Bus" ? riyadhBusRef : name == "Taxi Terminal"
@@ -71,6 +82,7 @@ class BookingProvider extends ChangeNotifier {
         bookings.add(BookingDetails.fromJson(element.value as Map, element.key.toString()));
       }
     });
+
   }
 
   Future<void> deleteBooking(String id) async {
@@ -80,6 +92,7 @@ class BookingProvider extends ChangeNotifier {
         .child(id)
         .remove();
     bookings.removeWhere((element) => element.id == id);
+    tourismBookings.removeWhere((element) => element['ids'] == id);
     notifyListeners();
   }
 

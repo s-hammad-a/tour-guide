@@ -105,7 +105,7 @@ class OwnerScreen extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Provider.of<HomeScreenProvider>(context, listen: false).isAdmin ? IconButton(
+                              Provider.of<HomeScreenProvider>(context, listen: false).isAdmin || AuthService().auth.currentUser!.email!.contains("@owner.com") ? IconButton(
                                 style: const ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(Colors.white)),
                                 icon: const Icon(

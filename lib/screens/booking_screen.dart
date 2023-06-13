@@ -29,12 +29,20 @@ class BookingScreen extends StatelessWidget {
                 const SizedBox(height: 10,),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: context.watch<BookingProvider>().bookings.length,
+                    itemCount: context.watch<BookingProvider>().bookings.length + context.watch<BookingProvider>().tourismBookings.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                        child: BookingCard(details: context.watch<BookingProvider>().bookings[index]),
-                      );
+                      if(Provider.of<BookingProvider>(context, listen: false).bookings.length > index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                          child: BookingCard(details: context.watch<BookingProvider>().bookings[index]),
+                        );
+                      }
+                      else {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                          child: TourismCard(index: index - Provider.of<BookingProvider>(context, listen: false).bookings.length),
+                        );
+                      }
                     },
                   ),
                 ),
@@ -185,6 +193,108 @@ class BookingCard extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   Provider.of<BookingProvider>(context, listen: false).deleteBooking(details.id);
+                },
+                icon: const Icon(
+                  Icons.cancel_outlined,
+                  color: Colors.red,
+                  size: 20,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class TourismCard extends StatelessWidget {
+  const TourismCard({Key? key, required this.index}) : super(key: key);
+  final int index;
+  final List<String> weekdays = const [
+    "",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    DateTime dateTime = DateTime.parse(context.watch<BookingProvider>().tourismBookings[index]['date'],);
+    return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20)
+      ),
+      child: SizedBox(
+        height: 200,
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
+                  image: DecorationImage(
+                      image: AssetImage("assets/travel_plans.jpg",),
+                      fit: BoxFit.fill
+                  ),
+                ),
+                alignment: Alignment.center,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      context.watch<BookingProvider>().tourismBookings[index]['name'],
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                    Text(
+                      context.watch<BookingProvider>().tourismBookings[index]['email'],
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                    Text(
+                      weekdays[dateTime.weekday],
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                    Text(
+                      dateTime.toString().substring(0, 10),
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 40,
+              child: IconButton(
+                onPressed: () {
+                  Provider.of<BookingProvider>(context, listen: false).deleteBooking(Provider.of<BookingProvider>(context, listen: false).tourismBookings[index]['ids']);
                 },
                 icon: const Icon(
                   Icons.cancel_outlined,

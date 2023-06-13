@@ -34,6 +34,7 @@ import 'package:togu/screens/saved_screen.dart';
 import 'package:togu/screens/splash_page.dart';
 import 'package:togu/screens/taxi_screen.dart';
 import 'package:togu/screens/tourism_details_screen.dart';
+import 'package:togu/screens/tourism_reservation_screen.dart';
 import 'package:togu/screens/tourism_screen.dart';
 import 'package:togu/screens/transport_screen.dart';
 import 'package:togu/screens/travel_plan_screen.dart';
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
                   "/ownerReservationScreen": (context) => const OwnerReservationScreen(),
                   "/tourismDetailScreen": (context) => const TourismDetailScreen(),
                   "/addTourismScreen": (context) => const AddTourismScreen(),
+                  "/tourismReservationScreen": (context) => const TourismReservationScreen(),
                 },
                 theme: ThemeData(
                   // This is the theme of your application.
